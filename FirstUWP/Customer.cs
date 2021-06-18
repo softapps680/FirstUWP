@@ -14,6 +14,9 @@ namespace FirstUWP
 
         public Ticket Ticket { get; set; }
 
+        public Customer()
+        {
+        }
         //Knyter ihop objekten med konstruktorn
         public Customer(int id, string firstName,string lastName, Ticket ticket)
         {

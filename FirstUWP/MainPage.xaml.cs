@@ -28,13 +28,14 @@ namespace FirstUWP
         // List<Customer> customers = new List<Customer>();
         ObservableCollection<Customer> customers =new ObservableCollection<Customer>();
         public Status selected;
-
+            //public string FirstName, LastName, InfoText;
         public MainPage()
         {
             this.InitializeComponent();
 
             this.DataContext = this;
            
+            
             
 
             customers.Add(new BusinessCustomer(1,"Allan","Ballan",new Ticket(1,Status.Closed)));
@@ -58,14 +59,14 @@ namespace FirstUWP
 
         private  void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            BusinessCustomer c = new BusinessCustomer(1, CustomerFirstName.Text, CustomerLastName.Text, new Ticket(1, selected));
+            BusinessCustomer c = new BusinessCustomer(1, FirstName.Text, LastName.Text, new Ticket(1, selected));
             customers.Add(c);
 
 
-            InfoText.Text = "Sparade " + CustomerFirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100); ;
+            InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100); ;
             
-            CustomerFirstName.Text = "";
-            CustomerLastName.Text = "";
+            FirstName.Text = "";
+            LastName.Text = "";
            
         }
         private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)

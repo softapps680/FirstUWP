@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+  >
 
     <Grid  x:Name="MainGrid">
 
@@ -21,9 +22,9 @@
 
         <Grid x:Name="FirstGrid" Grid.Column="0" Grid.Row="0" Background="FloralWhite" >
             <StackPanel>
-            
-                <TextBox x:Name="CustomerFirstName" Text = "{Binding FirstName}"  Header= "Customer FirstName" Margin="0,24,0,0" HorizontalAlignment="Left" />
-                <TextBox x:Name="CustomerLastName" Text = "{Binding LastName}" Header="Customer LastName"  Margin="0,24,0,0" HorizontalAlignment="Left" />
+
+                <TextBox x:Name="FirstName"   Header= "Customer FirstName" Margin="0,24,0,0" HorizontalAlignment="Left" />
+                <TextBox x:Name="LastName"  Header="Customer LastName"  Margin="0,24,0,0" HorizontalAlignment="Left" />
 
                 <ComboBox Margin="20,20,20,20" x:Name="SelectStatus" SelectionChanged="status_SelectionChanged" Height = "50" Width = "150"/>
 
@@ -36,7 +37,7 @@
           
                
            
-                <TextBlock x:Name="InfoText" Text="{Binding InfoText}"  TextWrapping="Wrap" />
+                <TextBlock x:Name="InfoText"   TextWrapping="Wrap" />
 
             </StackPanel>
         </Grid>
