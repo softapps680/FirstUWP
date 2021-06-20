@@ -11,11 +11,14 @@ namespace FirstUWP
         public int Id { get; set; }
 
         public Status Status { get; set; }
-       
-        public Ticket(int id, Status s)
+
+        public string Description { get; set; }
+
+        public Ticket(int id, Status s,string desc)
         {
            this.Id = id;
            this.Status = s;
+           this.Description = desc;
         }
     }
 }

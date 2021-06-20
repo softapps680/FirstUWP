@@ -11,18 +11,19 @@ namespace FirstUWP
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public decimal BasePrice { get; set; }
         public Ticket Ticket { get; set; }
 
         public Customer()
         {
         }
         //Knyter ihop objekten med konstruktorn
-        public Customer(int id, string firstName,string lastName, Ticket ticket)
+        public Customer(int id, string firstName,string lastName, decimal basprice, Ticket ticket)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
+            this.BasePrice = basprice;
             this.Ticket = ticket;
         }
 

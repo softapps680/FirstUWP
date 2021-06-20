@@ -27,20 +27,22 @@ namespace FirstUWP
         //Bygga listan med kunder skapas en gång
         // List<Customer> customers = new List<Customer>();
         ObservableCollection<Customer> customers =new ObservableCollection<Customer>();
+       
         public Status selected;
+        public int type; 
             //public string FirstName, LastName, InfoText;
         public MainPage()
         {
             this.InitializeComponent();
 
             this.DataContext = this;
-           
-            
-            
 
-            customers.Add(new BusinessCustomer(1,"Allan","Ballan",new Ticket(1,Status.Closed)));
-            customers.Add(new BusinessCustomer(1, "Ylva", "Yster", new Ticket(1, Status.Completed)));
-            customers.Add(new BusinessCustomer(1, "Kjell", "Kriminell", new Ticket(1, Status.Processing)));
+          
+
+
+            customers.Add(new BusinessCustomer(1,"Allan","Ballan",150,new Ticket(1,Status.Closed,"")));
+            customers.Add(new BusinessCustomer(1, "Ylva", "Yster",300, new Ticket(1, Status.Completed,"")));
+            customers.Add(new BusinessCustomer(1, "Kjell", "Kriminell",150, new Ticket(1, Status.Processing,"")));
 
             CustomersList.ItemsSource = customers;
 
@@ -59,12 +61,18 @@ namespace FirstUWP
 
         private  void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            BusinessCustomer c = new BusinessCustomer(1, FirstName.Text, LastName.Text, new Ticket(1, selected));
+
+            if (type == 1) { 
+            BusinessCustomer c = new BusinessCustomer(1, FirstName.Text, LastName.Text, 150,new Ticket(1, selected, Description.Text));
             customers.Add(c);
+                //InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100);
+            }
+            else if(type==2){
+                PrivateCustomer c = new PrivateCustomer(1, FirstName.Text, LastName.Text,300, new Ticket(1, selected, Description.Text));
+                customers.Add(c);
+                //InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100);
+            }
 
-
-            InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100); ;
-            
             FirstName.Text = "";
             LastName.Text = "";
            
@@ -76,7 +84,18 @@ namespace FirstUWP
            
         }
 
+        private void Business_Click(object sender, RoutedEventArgs e)
+        {
+            type = 1;
+            Price.Text = "150";
         }
+
+        private void Private_Click(object sender, RoutedEventArgs e)
+        {
+            type = 2;
+            Price.Text = "300";
+        }
+    }
     }
 
 

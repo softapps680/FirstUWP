@@ -8,11 +8,11 @@ namespace FirstUWP
 {
     public class BusinessCustomer:Customer
     {   
-        public BusinessCustomer()
-        {
-        }
-        public decimal Discount { get; private set; } = 0;
         
+        
+        public decimal Discount { get; private set; } = 0.90m;
+        public decimal FinalPrice { get; set; }
+
         public void SetDiscount(decimal value)
         {
             Discount = value;
@@ -20,9 +20,9 @@ namespace FirstUWP
         
 
         //Man kan alltså inte ärva konstruktorn utan man anropar basklassens konstruktor
-        public BusinessCustomer(int id, string firstName, string lastName, Ticket ticket):base(id,firstName,lastName,ticket)
+        public BusinessCustomer(int id, string firstName, string lastName, decimal baseprice,Ticket ticket):base(id,firstName,lastName,baseprice,ticket)
         {
-           
+            this.FinalPrice = this.CalculateDiscountPrice(baseprice); 
         }
         public override decimal CalculateDiscountPrice(decimal price)
         {
