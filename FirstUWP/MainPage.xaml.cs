@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,53 +14,43 @@ namespace FirstUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        //Bygga listan med kunder skapas en gång
-        // List<Customer> customers = new List<Customer>();
-        ObservableCollection<Customer> customers =new ObservableCollection<Customer>();
-       
-        public Status selected;
-        public int type; 
-            //public string FirstName, LastName, InfoText;
+        
+        private ObservableCollection<Customer> customers =new ObservableCollection<Customer>();
+        private Status selectedStatus;
+        private int selectedCustomerType;
+        private decimal privatePrice = 300.0m, businessPrice = 150.0m;    
+        
         public MainPage()
         {
             this.InitializeComponent();
-
             this.DataContext = this;
 
           
-
-
-            customers.Add(new BusinessCustomer(1,"Allan","Ballan",150,new Ticket(1,Status.Closed,"")));
-            customers.Add(new BusinessCustomer(1, "Ylva", "Yster",300, new Ticket(1, Status.Completed,"")));
-            customers.Add(new BusinessCustomer(1, "Kjell", "Kriminell",150, new Ticket(1, Status.Processing,"")));
-
+            customers.Add(new BusinessCustomer(1,"Allan","Ballan",businessPrice,new Ticket(1,Status.Closed,"")));
+            customers.Add(new PrivateCustomer(1, "Ylva", "Yster",privatePrice, new Ticket(1, Status.Completed,"")));
+            customers.Add(new BusinessCustomer(1, "Kjell", "Kriminell",businessPrice, new Ticket(1, Status.Processing,"")));
             CustomersList.ItemsSource = customers;
 
             var selections = Enum.GetValues(typeof(Status)).Cast<Status>();
             SelectStatus.ItemsSource = selections.ToList();
-
-            
-
-            Button saveButton = new Button();
-            saveButton.Click += SaveButton_Click;
-
-           
-            FirstGrid.Children.Add(saveButton);
 
         }
 
         private  void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (type == 1) { 
-            BusinessCustomer c = new BusinessCustomer(1, FirstName.Text, LastName.Text, 150,new Ticket(1, selected, Description.Text));
+            if (selectedCustomerType == 1) { 
+            BusinessCustomer c = new BusinessCustomer(1, FirstName.Text, LastName.Text, businessPrice,new Ticket(1, selectedStatus, Description.Text));
+            
             customers.Add(c);
-                //InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100);
+            InfoText.Text = "Sparat";
             }
-            else if(type==2){
-                PrivateCustomer c = new PrivateCustomer(1, FirstName.Text, LastName.Text,300, new Ticket(1, selected, Description.Text));
-                customers.Add(c);
-                //InfoText.Text = "Sparade " + FirstName.Text + "KOLLA " + c.CalculateDiscountPrice(100);
+            
+            else if(selectedCustomerType == 2){
+            PrivateCustomer c = new PrivateCustomer(1, FirstName.Text, LastName.Text,privatePrice, new Ticket(1, selectedStatus, Description.Text));
+           
+            customers.Add(c);
+            InfoText.Text = "Sparat";
             }
 
             FirstName.Text = "";
@@ -80,20 +60,20 @@ namespace FirstUWP
         private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var container = sender as ComboBox;
-            selected = (Status) container.SelectedItem;
+            selectedStatus = (Status) container.SelectedItem;
            
         }
 
         private void Business_Click(object sender, RoutedEventArgs e)
         {
-            type = 1;
-            Price.Text = "150";
+            selectedCustomerType = 1;
+            Price.Text = businessPrice.ToString();
         }
 
         private void Private_Click(object sender, RoutedEventArgs e)
         {
-            type = 2;
-            Price.Text = "300";
+            selectedCustomerType = 2;
+            Price.Text = privatePrice.ToString();
         }
     }
     }

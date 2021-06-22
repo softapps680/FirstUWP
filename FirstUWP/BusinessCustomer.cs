@@ -24,9 +24,13 @@ namespace FirstUWP
         {
             this.FinalPrice = this.CalculateDiscountPrice(baseprice); 
         }
+        public BusinessCustomer()
+        {
+
+        }
         public override decimal CalculateDiscountPrice(decimal price)
         {
-            return price * Discount;
+            return (decimal) price * Discount;
         }
     }
 }
